@@ -1,0 +1,81 @@
+/* Footer Container */
+.footer-container {
+    background-color: black; /* Black background for the footer */
+    color: white; /* White text color */
+    padding: 40px 20px; /* Padding to give space around content */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  
+  /* Logo Styling */
+  .footer-logo {
+    margin-bottom: 20px;
+  }
+  
+  .footer-logo-image {
+    width: 120px; /* Adjust according to your logo's size */
+    height: auto;
+  }
+  
+  /* Footer Links */
+  .footer-links ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    gap: 30px; /* Space between the links */
+  }
+  
+  .footer-links li {
+    margin: 0;
+  }
+  
+  .footer-links a {
+    color: white;
+    text-decoration: none;
+    font-size: 1.1rem;
+    font-family: 'Times New Roman', Times, serif; /* A common footer font */
+  }
+  
+  .footer-links a:hover {
+    text-decoration: underline; /* Underline on hover */
+  }
+  
+  /* Contact Details */
+  .footer-contact p {
+    margin: 5px 0;
+    font-family: 'Times New Roman', Times, serif;
+  }
+  
+  .footer-contact a {
+    color: white;
+    text-decoration: none;
+  }
+  
+  .footer-contact a:hover {
+    text-decoration: underline;
+  }
+  
+  /* Copyright Text */
+  .footer-copyright p {
+    margin-top: 20px;
+    font-size: 1rem;
+    font-family: 'Times New Roman', Times, serif;
+  }
+  
+  /* Responsive Design for Mobile */
+  @media (max-width: 768px) {
+    .footer-container {
+      padding: 30px 10px;
+    }
+    .footer-links ul {
+      flex-direction: column;
+      align-items: center;
+      gap: 15px;
+    }
+  }
+  

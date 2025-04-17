@@ -1,0 +1,30 @@
+/* File: src/index.css */
+
+@import url('https://fonts.googleapis.com/css2?family=Calendas+Plus&display=swap');
+
+.carousel-section {
+  margin-top: 50px;
+  padding: 20px;
+}
+
+.carousel-section h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #222;
+  font-size: 2rem;
+}
+
+.photo-item {
+  display: inline-block;
+  margin: 0 10px;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.photo-item img {
+  width: 300px;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 10px;
+}

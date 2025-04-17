@@ -1,0 +1,12 @@
+.quote-container {
+    padding: 40px 20px;
+    background-color: #fceff9;
+    text-align: center;
+  }
+  
+  .quote-text {
+    font-family: 'Dancing Script', cursive;
+    font-size: 2rem;
+    color: #b23a48;
+  }
+  

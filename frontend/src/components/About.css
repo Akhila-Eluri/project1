@@ -1,0 +1,11 @@
+.about-banner-container {
+  width: 100%;
+  overflow: hidden;
+}
+
+.about-banner {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+}
