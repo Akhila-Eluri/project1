@@ -33,6 +33,7 @@ const bookingSchema = new mongoose.Schema({
   }
 });
 
+// this is booking model call back function
 const Booking = mongoose.model('Booking', bookingSchema);
 
 module.exports = Booking;
