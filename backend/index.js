@@ -2,6 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const bookingRoutes = require('./routes/bookingRoutes');
+const serviceRoutes = require('./routes/serviceRoutes'); // ✅ NEW
 
 const app = express();
 const PORT = 4000;
@@ -25,8 +26,9 @@ app.get('/test', (req, res) => {
   res.send('Test route working!');
 });
 
-// Booking routes
+// Routes
 app.use('/api/bookings', bookingRoutes);
+app.use('/api/services', serviceRoutes); // ✅ NEW
 
 // Start server
 console.log("Routes are registered!");
