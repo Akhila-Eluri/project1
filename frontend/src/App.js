@@ -2,6 +2,7 @@
 
 import Header from './components/Header';
 import Gallery from './components/Gallery';
+import Services from './components/Services';
 import BookingForm from './components/BookingForm';
 import About from './components/About';
 import Footer from './components/Footer';

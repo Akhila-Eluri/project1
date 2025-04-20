@@ -68,3 +68,13 @@ router.delete("/:id", async (req, res) => {
 });
 
 module.exports = router;
+
+// Get all bookings (admin only)
+router.get("/", async (req, res) => {
+  try {
+    const bookings = await Booking.find().sort({ eventDate: 1 });
+    res.json(bookings);
+  } catch (err) {
+    res.status(500).json({ message: "Failed to retrieve bookings" });
+  }
+});
