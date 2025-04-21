@@ -1,0 +1,105 @@
+import React, { useState, useEffect } from 'react';
+import './Reviews.css';
+
+const Reviews = () => {
+  const [reviews, setReviews] = useState([]);
+  const [newReview, setNewReview] = useState({
+    name: '',
+    email: '',
+    rating: 1,
+    message: '',
+  });
+
+  // Fetch reviews from the backend
+  useEffect(() => {
+    const fetchReviews = async () => {
+      const response = await fetch('http://localhost:4000/api/reviews');
+      const data = await response.json();
+      setReviews(data);
+    };
+    fetchReviews();
+  }, []);
+
+  // Handle form submission
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const response = await fetch('http://localhost:4000/api/reviews', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(newReview),
+    });
+
+    if (response.ok) {
+      const savedReview = await response.json();
+      setReviews([savedReview, ...reviews]);
+      setNewReview({
+        name: '',
+        email: '',
+        rating: 1,
+        message: '',
+      });
+    } else {
+      const errorResponse = await response.json();
+      console.error('Failed to submit review:', errorResponse.error);
+    }
+  };
+
+  return (
+    <div className="reviews-section">
+      <h2>Client Reviews</h2>
+
+      <form onSubmit={handleSubmit} className="review-form">
+        <input
+          type="text"
+          name="name"
+          value={newReview.name}
+          onChange={(e) => setNewReview({ ...newReview, name: e.target.value })}
+          placeholder="Your Name"
+          required
+        />
+        <input
+          type="email"
+          name="email"
+          value={newReview.email}
+          onChange={(e) => setNewReview({ ...newReview, email: e.target.value })}
+          placeholder="Your Email"
+          required
+        />
+        <select
+          name="rating"
+          value={newReview.rating}
+          onChange={(e) => setNewReview({ ...newReview, rating: e.target.value })}
+          required
+        >
+          <option value={1}>1 Star</option>
+          <option value={2}>2 Stars</option>
+          <option value={3}>3 Stars</option>
+          <option value={4}>4 Stars</option>
+          <option value={5}>5 Stars</option>
+        </select>
+        <textarea
+          name="message"
+          value={newReview.message}
+          onChange={(e) => setNewReview({ ...newReview, message: e.target.value })}
+          placeholder="Write your review"
+          required
+        />
+        <button type="submit">Submit Review</button>
+      </form>
+
+      <div className="reviews-list">
+        {reviews.map((review, index) => (
+          <div key={index} className="review-item">
+            <p><strong>{review.name}</strong></p>
+            <p>{review.message}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
+
+export default Reviews;
