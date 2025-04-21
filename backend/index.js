@@ -1,37 +1,37 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
+
 const bookingRoutes = require('./routes/bookingRoutes');
-const serviceRoutes = require('./routes/serviceRoutes'); // ✅ NEW
+const serviceRoutes = require('./routes/serviceRoutes');
 
 const app = express();
 const PORT = 4000;
 
-// Middleware
-app.use(cors());
-app.use(express.json());
+// ===== Middleware =====
+app.use(cors()); // Handles CORS (Cross-Origin Resource Sharing)
+app.use(express.json()); // Parses incoming requests with JSON payloads
 
-// MongoDB connection
-mongoose.connect('mongodb+srv://AkhilaEluri:AProjectdb@photoappcluster.ttpi4hy.mongodb.net/?retryWrites=true&w=majority&appName=photoAppCluster')
+// ===== MongoDB Connection =====
+mongoose.connect('mongodb+srv://AkhilaEluri:AProjectdb@photoappcluster.ttpi4hy.mongodb.net/')
   .then(() => {
-    console.log('Connected to MongoDB');
+    console.log('✅ Connected to MongoDB');
   })
   .catch((error) => {
-    console.error('MongoDB connection error:', error);
+    console.error('❌ MongoDB connection error:', error);
   });
 
-// Test route
+// ===== Test Route =====
 app.get('/test', (req, res) => {
   console.log("GET /test route hit!");
   res.send('Test route working!');
 });
 
-// Routes
-app.use('/api/bookings', bookingRoutes);
-app.use('/api/services', serviceRoutes); // ✅ NEW
+// ===== API Routes =====
+app.use('/api/bookings', bookingRoutes); // Route for booking-related actions
+app.use('/api/services', serviceRoutes); // Route for services display and selection
 
-// Start server
-console.log("Routes are registered!");
+// ===== Start Server =====
 app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+  console.log(`🚀 Server running on port ${PORT}`);
 });

@@ -1,6 +1,6 @@
 // routes/serviceRoutes.js
-import express from 'express';
-import Service from '../models/Service.js';
+const express = require('express');
+const Service = require('../models/Service');
 
 const router = express.Router();
 
@@ -14,4 +14,4 @@ router.get('/', async (req, res) => {
   }
 });
 
-export default router;
+module.exports = router;

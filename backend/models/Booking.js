@@ -1,28 +1,17 @@
 const mongoose = require('mongoose');
 
 const bookingSchema = new mongoose.Schema({
-  clientName: {
+  name: {
     type: String,
     required: true
   },
-  email: {
-    type: String
-  },
-  phone: {
-    type: String
-  },
-  eventType: {
-    type: String
-  },
-  eventDate: {
-    type: Date
-  },
-  location: {
-    type: String
-  },
-  message: {
-    type: String
-  },
+  email: String,
+  phone: String,
+  eventType: String,
+  eventDate: Date,
+  location: String,
+  message: String,
+  package: String,
   status: {
     type: String,
     default: 'pending'
@@ -33,7 +22,4 @@ const bookingSchema = new mongoose.Schema({
   }
 });
 
-
-const Booking = mongoose.model('Booking', bookingSchema);
-
-module.exports = Booking;
+module.exports = mongoose.model("Booking", bookingSchema);
