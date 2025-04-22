@@ -47,7 +47,6 @@ const BookingForm = () => {
       eventDate: formData.eventDate,
       location: formData.location,
       message: formData.message,
-      package: formData.package
     };
 
     try {
@@ -97,7 +96,6 @@ const BookingForm = () => {
       eventDate: booking.eventDate.slice(0, 10),
       location: booking.location,
       message: booking.message,
-      package: booking.package
     });
     setIsEditing(true);
   };
@@ -111,7 +109,6 @@ const BookingForm = () => {
       eventDate: formData.eventDate,
       location: formData.location,
       message: formData.message,
-      package: formData.package
     };
 
     try {
@@ -173,12 +170,6 @@ const BookingForm = () => {
         <input type="date" name="eventDate" value={formData.eventDate} onChange={handleChange} required />
         <input type="text" name="location" placeholder="Location" value={formData.location} onChange={handleChange} required />
         <textarea name="message" placeholder="Message" value={formData.message} onChange={handleChange}></textarea>
-        <select name="package" value={formData.package} onChange={handleChange} required>
-          <option value="">Select Package</option>
-          <option value="Gold">Gold</option>
-          <option value="Diamond">Diamond</option>
-          <option value="Platinum">Platinum</option>
-        </select>
         <button type="submit" className={submitted ? "submitted" : ""}>
           {submitted ? "Submitted!" : "Submit Booking"}
         </button>

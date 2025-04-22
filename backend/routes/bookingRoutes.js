@@ -12,8 +12,7 @@ router.post("/", async (req, res) => {
       eventType,
       eventDate,
       location,
-      message,
-      package
+      message
     } = req.body;
 
     // Validate required fields
@@ -28,8 +27,7 @@ router.post("/", async (req, res) => {
       eventType,
       eventDate,
       location,
-      message,
-      package
+      message
     });
 
     const savedBooking = await newBooking.save();
@@ -93,14 +91,23 @@ router.delete("/:id", async (req, res) => {
   }
 });
 
-// GET all bookings (admin only)
-router.get("/", async (req, res) => {
+// GET all bookings (for Admin)
+router.get('/', async (req, res) => {
   try {
-    const bookings = await Booking.find().sort({ eventDate: 1 });
-    res.status(200).json(bookings);
-  } catch (error) {
-    console.error("Error retrieving bookings:", error);
-    res.status(500).json({ message: "Failed to retrieve bookings" });
+    const bookings = await Booking.find().sort({ createdAt: -1 });
+    res.json(bookings);
+  } catch (err) {
+    res.status(500).json({ error: 'Failed to fetch bookings' });
+  }
+});
+
+// DELETE a booking by ID (for Admin)
+router.delete('/:id', async (req, res) => {
+  try {
+    await Booking.findByIdAndDelete(req.params.id);
+    res.status(200).json({ message: 'Booking deleted successfully' });
+  } catch (err) {
+    res.status(500).json({ error: 'Failed to delete booking' });
   }
 });
 

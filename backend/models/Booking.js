@@ -11,7 +11,6 @@ const bookingSchema = new mongoose.Schema({
   eventDate: Date,
   location: String,
   message: String,
-  package: String,
   status: {
     type: String,
     default: 'pending'

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Header from './components/Header';
 import Gallery from './components/Gallery';
@@ -7,10 +7,12 @@ import BookingForm from './components/BookingForm';
 import Reviews from './components/Reviews';
 import About from './components/About';
 import Footer from './components/Footer';
+import AdminDashboard from './components/AdminDashboard';
 
 function App() {
+  const [showAdmin, setShowAdmin] = useState(false);
+
   useEffect(() => {
-    // 👇 Backend connection test
     axios.get('http://localhost:4000/test')
       .then(res => {
         console.log("✅ Backend Connected:", res.data);
@@ -22,13 +24,19 @@ function App() {
 
   return (
     <div>
-      <Header />
-      <Gallery />
-      <Services />
-      <BookingForm />
-      <Reviews />
-      <About />
-      <Footer />
+      {showAdmin ? (
+        <AdminDashboard />
+      ) : (
+        <>
+          <Header />
+          <Gallery />
+          <Services />
+          <BookingForm />
+          <Reviews />
+          <About />
+        </>
+      )}
+      <Footer setShowAdmin={setShowAdmin} />
     </div>
   );
 }

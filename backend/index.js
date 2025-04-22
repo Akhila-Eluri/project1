@@ -3,7 +3,6 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 
 const bookingRoutes = require('./routes/bookingRoutes');
-const serviceRoutes = require('./routes/serviceRoutes');
 const reviewRoutes = require('./routes/reviewRoutes'); // Make sure the path is correct
 
 const app = express();
@@ -24,7 +23,6 @@ mongoose.connect('mongodb+srv://AkhilaEluri:AProjectdb@photoappcluster.ttpi4hy.m
 
 // ===== API Routes =====
 app.use('/api/bookings', bookingRoutes); // Route for booking-related actions
-app.use('/api/services', serviceRoutes); // Route for services display and selection
 app.use('/api', reviewRoutes); // Review routes (corrected prefix)
 
 app.listen(PORT, () => {

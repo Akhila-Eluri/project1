@@ -1,8 +1,12 @@
 import React, { useEffect, useState } from "react";
 import "./AdminDashboard.css";
 
+const ADMIN_KEY = "hclicksadmin123"; // Replace with your own secret key
+
 const AdminDashboard = () => {
   const [bookings, setBookings] = useState([]);
+  const [authenticated, setAuthenticated] = useState(false);
+  const [inputKey, setInputKey] = useState("");
 
   const fetchBookings = async () => {
     try {
@@ -34,8 +38,37 @@ const AdminDashboard = () => {
   };
 
   useEffect(() => {
-    fetchBookings();
-  }, []);
+    if (authenticated) {
+      fetchBookings();
+    }
+  }, [authenticated]);
+
+  const handleLogin = (e) => {
+    e.preventDefault();
+    if (inputKey === ADMIN_KEY) {
+      setAuthenticated(true);
+    } else {
+      alert("Incorrect admin key!");
+    }
+  };
+
+  if (!authenticated) {
+    return (
+      <div className="admin-login">
+        <h2>Admin Access</h2>
+        <form onSubmit={handleLogin}>
+          <input
+            type="password"
+            value={inputKey}
+            onChange={(e) => setInputKey(e.target.value)}
+            placeholder="Enter Admin Key"
+            required
+          />
+          <button type="submit">Enter</button>
+        </form>
+      </div>
+    );
+  }
 
   return (
     <div className="admin-dashboard">
