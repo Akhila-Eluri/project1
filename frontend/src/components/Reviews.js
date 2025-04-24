@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import axiosInstance from '../util/axiosInstance';
 import './Reviews.css';
 
 const Reviews = () => {
@@ -10,30 +11,27 @@ const Reviews = () => {
     message: '',
   });
 
-  // Fetch reviews from the backend
+
   useEffect(() => {
     const fetchReviews = async () => {
-      const response = await fetch('http://localhost:4000/api/reviews');
-      const data = await response.json();
-      setReviews(data);
+      try {
+        const response = await axiosInstance.get('/reviews');
+        setReviews(response.data);
+      } catch (error) {
+        console.error("Error fetching reviews", error);
+      }
     };
+
     fetchReviews();
   }, []);
 
-  // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    const response = await fetch('http://localhost:4000/api/reviews', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(newReview),
-    });
-
-    if (response.ok) {
-      const savedReview = await response.json();
+  
+    try {
+      const response = await axiosInstance.post('/reviews', newReview);
+      const savedReview = response.data;
+  
       setReviews([savedReview, ...reviews]);
       setNewReview({
         name: '',
@@ -41,9 +39,8 @@ const Reviews = () => {
         rating: 1,
         message: '',
       });
-    } else {
-      const errorResponse = await response.json();
-      console.error('Failed to submit review:', errorResponse.error);
+    } catch (error) {
+      console.error('Failed to submit review:', error.response?.data?.error || error.message);
     }
   };
 

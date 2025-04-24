@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./AdminDashboard.css";
+import axiosInstance from '../util/axiosInstance';
+
 
 const ADMIN_KEY = "hclicksadmin123"; // Replace with your own secret key
 
@@ -10,29 +12,23 @@ const AdminDashboard = () => {
 
   const fetchBookings = async () => {
     try {
-      const response = await fetch("http://localhost:4000/api/bookings");
-      const data = await response.json();
-      setBookings(data);
+      const response = await axiosInstance.get('/bookings'); // Automatically uses baseURL
+      setBookings(response.data);
     } catch (error) {
       console.error("Error fetching bookings", error);
     }
   };
 
+
   const handleDelete = async (id) => {
     if (window.confirm("Are you sure you want to delete this booking?")) {
       try {
-        const response = await fetch(`http://localhost:4000/api/bookings/${id}`, {
-          method: "DELETE",
-        });
-
-        if (response.ok) {
-          setBookings(bookings.filter((booking) => booking._id !== id));
-          alert("Booking deleted successfully.");
-        } else {
-          alert("Failed to delete booking.");
-        }
+        await axiosInstance.delete(`/bookings/${id}`);
+        setBookings(bookings.filter((booking) => booking._id !== id));
+        alert("Booking deleted successfully.");
       } catch (error) {
         console.error("Error deleting booking", error);
+        alert("Failed to delete booking.");
       }
     }
   };

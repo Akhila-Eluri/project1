@@ -9,11 +9,13 @@ import About from './components/About';
 import Footer from './components/Footer';
 import AdminDashboard from './components/AdminDashboard';
 
+import axiosInstance from './util/axiosInstance';
+
 function App() {
   const [showAdmin, setShowAdmin] = useState(false);
 
   useEffect(() => {
-    axios.get('http://localhost:4000/test')
+    axiosInstance.get('/test')
       .then(res => {
         console.log("✅ Backend Connected:", res.data);
       })

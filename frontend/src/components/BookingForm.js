@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./BookingForm.css";
+import axiosInstance from '../util/axiosInstance';
 
 const BookingForm = () => {
   const [formData, setFormData] = useState({
@@ -50,19 +51,10 @@ const BookingForm = () => {
     };
 
     try {
-      const response = await fetch("http://localhost:4000/api/bookings", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload)
-      });
-
-      if (response.ok) {
-        setSubmitted(true);
-        resetForm();
-        setTimeout(() => setSubmitted(false), 3000);
-      } else {
-        alert("Failed to submit booking.");
-      }
+      await axiosInstance.post('/bookings', payload);
+      setSubmitted(true);
+      resetForm();
+      setTimeout(() => setSubmitted(false), 3000);
     } catch (error) {
       console.error("Error submitting form", error);
       alert("Something went wrong.");
@@ -71,8 +63,8 @@ const BookingForm = () => {
 
   const handleFetchBooking = async () => {
     try {
-      const response = await fetch(`http://localhost:4000/api/bookings/email/${emailQuery}`);
-      const data = await response.json();
+      const response = await axiosInstance.get(`/bookings/email/${emailQuery}`);
+      const data = response.data;
 
       if (!data || data.length === 0) {
         alert("No bookings found with that email.");
@@ -112,24 +104,16 @@ const BookingForm = () => {
     };
 
     try {
-      const response = await fetch(`http://localhost:4000/api/bookings/${selectedBookingId}`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(updatedData)
-      });
-
-      if (response.ok) {
-        alert("Booking updated successfully!");
-        resetForm();
-        setIsEditing(false);
-        setSelectedBookingId(null);
-        setBookings([]);
-        setEmailQuery("");
-      } else {
-        alert("Failed to update booking.");
-      }
+      await axiosInstance.put(`/bookings/${selectedBookingId}`, updatedData);
+      alert("Booking updated successfully!");
+      resetForm();
+      setIsEditing(false);
+      setSelectedBookingId(null);
+      setBookings([]);
+      setEmailQuery("");
     } catch (error) {
       console.error("Error updating booking", error);
+      alert("Failed to update booking.");
     }
   };
 
@@ -138,24 +122,18 @@ const BookingForm = () => {
       alert("Please select a booking to cancel.");
       return;
     }
-
+  
     try {
-      const response = await fetch(`http://localhost:4000/api/bookings/${selectedBookingId}`, {
-        method: "DELETE"
-      });
-
-      if (response.ok) {
-        alert("Booking cancelled successfully.");
-        resetForm();
-        setIsEditing(false);
-        setSelectedBookingId(null);
-        setBookings([]);
-        setEmailQuery("");
-      } else {
-        alert("Failed to cancel booking.");
-      }
+      await axiosInstance.delete(`/bookings/${selectedBookingId}`);
+      alert("Booking cancelled successfully.");
+      resetForm();
+      setIsEditing(false);
+      setSelectedBookingId(null);
+      setBookings([]);
+      setEmailQuery("");
     } catch (error) {
       console.error("Error cancelling booking", error);
+      alert("Failed to cancel booking.");
     }
   };
 
