@@ -8,9 +8,9 @@ console.log({
     isDev,
 });
 
-let server_url = "http://localhost:4000";
+let server_url = "http://localhost:4000/api";
 if (!isDev) {
-    server_url = "https://52.15.33.239"
+    server_url = "https://52.15.33.239/api"
 }
 
 const axiosInstance = axios.create({
