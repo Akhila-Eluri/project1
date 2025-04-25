@@ -6,7 +6,7 @@ const bookingRoutes = require('./routes/bookingRoutes');
 const reviewRoutes = require('./routes/reviewRoutes'); // Make sure the path is correct
 
 const app = express();
-const PORT = process.env.PORT || 80;
+const PORT = process.env.PORT || 4000;
 const userRoutes = require('./routes/users');
 const adminRoutes = require('./routes/admins');
 
