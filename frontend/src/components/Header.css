@@ -2,10 +2,21 @@
   width: 100%;
   height: 100vh;
   overflow: hidden;
+  position: relative;
 }
 
 .header-video {
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+
+@media (max-width: 768px) {
+  .header-video-container {
+    height: 60vh; /* Reduce height on small screens for better fit */
+  }
+
+  .header-video {
+    object-fit: contain; /* Or keep 'cover' if you want full coverage */
+  }
 }

@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import './Footer.css';
-import AdminDashboard from './AdminDashboard';
+import { useNavigate } from 'react-router-dom'; // ✅ NEW IMPORT
 
 const Footer = () => {
   const [showAdminDashboard, setShowAdminDashboard] = useState(false);
+  const navigate = useNavigate(); // ✅ INITIATE NAVIGATION
 
   useEffect(() => {
     const isAdmin = localStorage.getItem('isAdmin');
@@ -18,6 +19,7 @@ const Footer = () => {
       localStorage.setItem('isAdmin', 'true');
       setShowAdminDashboard(true);
       alert('✅ Admin Dashboard Unlocked.');
+      navigate('/admin'); // ✅ REDIRECT TO ADMIN PAGE
     } else {
       alert('❌ Incorrect Admin Key.');
     }
@@ -31,8 +33,12 @@ const Footer = () => {
         </div>
         <div className="footer-links">
           <ul>
-            <li><a href="/contact">Contact Us</a></li>
-            <li><a href="#!" onClick={handleAdminAccess}>Admin Dashboard</a></li>
+            <li>
+              {/* <a href="/contact"> */}
+              Contact:
+              {/* </a> */}
+            </li>
+            {/* <li><a href="#!" onClick={handleAdminAccess}>Admin Dashboard</a></li> */}
           </ul>
         </div>
         <div className="footer-contact">
@@ -44,8 +50,6 @@ const Footer = () => {
           <p>&copy; 2025 Hclicks Studio. All Rights Reserved.</p>
         </div>
       </footer>
-
-      {showAdminDashboard && <AdminDashboard />}
     </>
   );
 };

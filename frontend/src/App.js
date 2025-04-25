@@ -1,19 +1,11 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import Header from './components/Header';
-import Gallery from './components/Gallery';
-import Services from './components/Services';
-import BookingForm from './components/BookingForm';
-import Reviews from './components/Reviews';
-import About from './components/About';
-import Footer from './components/Footer';
+import React, { useEffect } from 'react';
+import { Routes, Route, Link } from 'react-router-dom'; // ✅ NEW IMPORTS
+import axiosInstance from './util/axiosInstance';
+import Home from './Home';
 import AdminDashboard from './components/AdminDashboard';
 
-import axiosInstance from './util/axiosInstance';
 
 function App() {
-  const [showAdmin, setShowAdmin] = useState(false);
-
   useEffect(() => {
     axiosInstance.get('/test')
       .then(res => {
@@ -25,21 +17,35 @@ function App() {
   }, []);
 
   return (
-    <div>
-      {showAdmin ? (
-        <AdminDashboard />
-      ) : (
-        <>
-          <Header />
-          <Gallery />
-          <Services />
-          <BookingForm />
-          <Reviews />
-          <About />
-        </>
-      )}
-      <Footer setShowAdmin={setShowAdmin} />
-    </div>
+    <>
+      <header
+        style={{
+
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          padding: "0 1rem"
+        }}
+      >
+
+        {/* <Link to="/"> */}
+          <h2>Home</h2>
+        {/* </Link> */}
+
+
+        <nav >
+          <Link to="/">Home</Link>
+          <Link to="/admin">Admin</Link>
+        </nav>
+      </header>
+      <Routes>
+        <Route
+          path="/"
+          element={<Home />}
+        />
+        <Route path="/admin" element={<AdminDashboard />} />
+      </Routes>
+    </>
   );
 }
 

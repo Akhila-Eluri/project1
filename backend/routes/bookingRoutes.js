@@ -1,6 +1,8 @@
 const express = require("express");
 const router = express.Router();
 const Booking = require("../models/Booking");
+const User = require("../models/User");
+
 
 // CREATE a new booking
 router.post("/", async (req, res) => {
@@ -30,7 +32,16 @@ router.post("/", async (req, res) => {
       message
     });
 
+    const newUser = new User({
+      name,
+      email,
+      phone
+    });
+
     const savedBooking = await newBooking.save();
+    const savedUser = await newUser.save();
+    console.log({ savedUser });
+
     res.status(201).json(savedBooking);
   } catch (error) {
     console.error("Error creating booking:", error);
