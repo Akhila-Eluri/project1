@@ -10,7 +10,8 @@ console.log({
 
 let server_url = "http://localhost:4000/api";
 if (!isDev) {
-    server_url = "https://52.15.33.239/api"
+    // server_url = "https://52.15.33.239/api"
+    server_url = "http://52.15.33.239:4000/api";
 }
 
 const axiosInstance = axios.create({
